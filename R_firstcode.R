@@ -54,3 +54,10 @@ plot(l2011[[3]], col=clr)
 # NIR
 cln <- colorRampPalette(c("darkgoldenrod4", "darkgoldenrod2", "darkgoldenrod")) (100)
 plot(l2011[[4]], col=cln)
+
+
+
+library(raster)
+setwd("C:/Lab/")
+l2006 <- brick("defor2_.png")
+plotRGB(l2006, 1, 2, 3, stretch="Lin")
