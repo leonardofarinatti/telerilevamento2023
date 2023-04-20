@@ -23,3 +23,17 @@ percentages = frequencies * 100 /  tot
 # class 2: highest energy level: 21.21993
 # class 3: lowest energy level: 37.33349
 # class 1: medium energy level: 41.44658
+
+# Grand Canyon exercise
+
+library(raster)
+setwd("C:/lab/")
+gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg")
+plotRGB(gc, r=1, g=2, b=3, stretch="lin")
+gcc <- crop(gc, drawExtent())
+plotRGB(gcc, r=1, g=2, b=3, stretch="lin")
+ncell(gcc)
+# 1. Get values
+singlenr <- getValues(gcc)
+# 2. Classify
+kcluster <- kmeans(singlenr, centers = 3)
