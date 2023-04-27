@@ -24,3 +24,41 @@ plot(mean3)
 
 sd3 <- focal(nir, matrix(1/9, 3, 3), fun=sd) 
 plot(sd3)
+
+# plotting with ggplot
+sd3d <- as.data.frame(sd3, xy=T)
+
+ggplot() +
+geom_raster(sd3d, mapping=aes(x=x, y=y, fill=layer)) + 
+ggtitle("Standard deviation moving window 3x3")
+
+# plotting with viridis
+ggplot() +
+geom_raster(sd3d, mapping =aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis() +
+ggtitle("Standard deviation by viridis package") + 
+
+# cividis
+ggplot() +
+geom_raster(sd3d, mapping =aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis(option = "cividis") +
+ggtitle("Standard deviation by viridis package")
+
+# magma
+ggplot() +
+geom_raster(sd3d, mapping =aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis(option = "magma") +
+ggtitle("Standard deviation by viridis package")
+
+# patchwork
+p1 <- ggplot() +
+geom_raster(sd3d, mapping =aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis(option = "cividis") +
+ggtitle("Standard deviation by viridis package")
+
+p2 <- ggplot() +
+geom_raster(sd3d, mapping =aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis(option = "magma") +
+ggtitle("Standard deviation by viridis package")
+
+p1 + p2
