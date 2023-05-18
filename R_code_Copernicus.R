@@ -13,3 +13,18 @@ scd <- as.data.frame(sc, xy=T)
 ggplot() +
 geom_raster(scd, mapping=aes(x=x, y=y, fill=Surface.Soil.Moisture)) +
 ggtitle("Soil Moisture for Copernicus")
+
+# Cropping an image
+ext <- c(23, 30, 62, 68) # define the extention
+sc.crop <- crop(sc, ext)
+
+# Excercise: plot via ggplot the cropped image
+scd.crop <- as.data.frame(sc.crop, xy=T)
+ggplot() +
+geom_raster(scd.crop, mapping=aes(x=x, y=y, fill=Surface.Soil.Moisture)) +
+ggtitle("Soil Moisture cropped") +
+scale_fill_viridis(option="cividis")
+
+# head() mostra solo i primi elementi
+# names() mostra il nome di un dataset
+# source() per caricare uno script da un file di testo
