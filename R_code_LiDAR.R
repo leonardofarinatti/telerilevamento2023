@@ -26,3 +26,11 @@ scale_fill_viridis(option= "magma") +
 ggtitle("dtm 2013")
 
 # create CHM 2013 as difference between dsm and dtm
+chm_2013 <- dsm_2013 - dtm_2013
+chm_2013d <- as.data.frame(chm_2013, xy=T)
+head(chm_2013d)
+
+ggplot() +
+geom_raster(chm_2013d, mapping =aes(x=x, y=y, fill=layer)) +
+scale_fill_viridis() +
+ggtitle("chm 2013")
