@@ -6,9 +6,11 @@
 # 2. loss of snow cover calculation
 # 3. standard deviation calculation to show the most changed points
 
-# First thing we need to set the working directory
-setwd("C:/Lab/Esame")
-
-# After that we need to download and call the packages that we will use later
+# We need to download and call the packages that we will use later
 # install.packages ("raster")
 library (raster)
+# install.packages ("rasterVis")
+library (rasterVis)
+# install.packages ("RStoolbox") # to calcolate PCA
+library (RStoolbox)
+
