@@ -5,3 +5,5 @@
 # 1. pca calculation (principal component analysis)
 # 2. loss of snow cover calculation
 # 3. standard deviation calculation to show the most changed points
+
+# First thing we need to download and call the packages that we need later
