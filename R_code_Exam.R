@@ -11,6 +11,10 @@
 library (raster)
 # install.packages ("rasterVis")
 library (rasterVis)
-# install.packages ("RStoolbox") # to calcolate PCA
-library (RStoolbox)
+# install.packages ("ggplot2") # to plot with ggplot
+library (ggplot2)
+# install.packages ("gridExtra") # to plot the ggplots together
+library (gridExtra)
 
+# Now set the working directory
+setwd ("C:/lab/Esame")
