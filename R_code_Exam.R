@@ -127,3 +127,11 @@ dev.off()
 jpeg("2023_component_1.jpg", 900, 900)
 plot(b1_2023, main = "2023 first component")
 dev.off()
+
+# Calcolate the difference between the 2 components
+diff <- b1_1984 - b1_2023
+# Make a new color palette to visualize the plot better
+cl <- colorRampPalette(c('yellow','black','red'))(100)
+# Plot the difference
+plot(diff, col=cl, main = "loss of snow")
+dev.off()
