@@ -15,7 +15,8 @@ library (rasterVis)
 library (ggplot2)
 # install.packages ("gridExtra") # to plot the ggplots together
 library (gridExtra)
-
+# install.packages ("viridis")
+library(viridis)
 # Now set the working directory
 setwd ("C:/lab/Esame")
 
@@ -73,3 +74,27 @@ jpeg("rgb picture, comparation.jpg", 900, 900)
 plot(rgb_picture_comparation)
 dev.off()
 
+# 1. PCA CALCULATION
+# Create a random number of samples from taku_2014 pixels (can't use directly the image from PCA)
+sample_2014 <- sampleRandom(taku_2014, 10000)
+# Calculate PCA
+pca_2014 <- prcomp(sample_2014)
+# Variance explained
+summary(pca_2014)
+# Importance of components:
+#                             PC1      PC2     PC3
+# Standard deviation     135.4307 11.43075 5.71805
+# Proportion of Variance   0.9912  0.00706 0.00177
+# Cumulative Proportion    0.9912  0.99823 1.00000
+# The 99% of variance is explained from the first component
+
+# Now the second picture
+sample_2019 <- sampleRandom(taku_2019, 10000)
+pca_2019 <- prcomp(sample_2019)
+summary(pca_2019)
+# Importance of components:
+#                             PC1      PC2     PC3
+# Standard deviation     142.6362 11.87155 7.63723
+# Proportion of Variance   0.9903  0.00686 0.00284
+# Cumulative Proportion    0.9903  0.99716 1.00000
+# The 99% of variance is explained from the first component
