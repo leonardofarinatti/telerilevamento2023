@@ -61,5 +61,15 @@ dev.off()
 
 # Now to see the images with real color we need to use "ggplot2" and "gridExtra" packages functions
 # Function "ggRGB" calcolate the composite raster, following the bands order "red, green, blue", using a linear stretch
-p1 <- ggRGB(taku_2014,r=1,g=2,b=3, stretch="lin")
-p2 <- ggRGB(taku_2019,r=1,g=2,b=3, stretch="lin")
+p1 <- plotRGB(taku_2014,r=1,g=2,b=3, stretch="lin")
+p2 <- plotRGB(taku_2019,r=1,g=2,b=3, stretch="lin")
+
+# Function "grid.arrange"  combine the two plots
+grid.arrange (p1,p2,nrow=1,ncol=2)
+# Assign the plot to an object
+rgb_picture_comparation <- grid.arrange(p1,p2,nrow=1, ncol=2)
+# Plot the picture comparation
+jpeg("rgb picture, comparation.jpg", 900, 900)
+plot(rgb_picture_comparation)
+dev.off()
+
