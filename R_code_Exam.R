@@ -98,3 +98,21 @@ summary(pca_2019)
 # Proportion of Variance   0.9903  0.00686 0.00284
 # Cumulative Proportion    0.9903  0.99716 1.00000
 # The 99% of variance is explained from the first component
+
+# Principal components map
+pci_2014 <- predict(taku_2014, pca_2014, index=c(1:2))
+plot(pci_2014[[1]])
+pci_2019 <- predict(taku_2019, pca_2019, index=c(1:2))
+plot(pci_2019[[1]])
+
+# ggplot
+pcid_2014 <- as.data.frame(pci_2014[[1]], xy=T)
+pcid_2014
+ggplot() +
+geom_raster(pcid_2014, mapping = aes(x=x, y=y, fill=PC1)) +
+scale_fill_viridis()
+pcid_2019 <- as.data.frame(pci_2019[[1]], xy=T)
+pcid_2019
+ggplot() +
+geom_raster(pcid_2019, mapping = aes(x=x, y=y, fill=PC1)) +
+scale_fill_viridis()
