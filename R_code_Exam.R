@@ -116,14 +116,14 @@ ggtitle("pci 2023")
 
 
 # 2. LOSS OF SNOW
-# Assign a name to the 2014 picture first component
-b1_2014 <- taku_2014$takuglacierretreat_oli_2014232_lrg_1
-# Assign a name to the 2019 picture first component
-b1_2019 <- taku_2019$takuglacierretreat_oli_2019221_lrg_1
+# Assign a name to the 1984 picture first component
+b1_1984 <- mendenhall_1984$mendenhallglacier_tm5_1984230_lrg_1
+# Assign a name to the 2023 picture first component
+b1_2023 <- mendenhall_2023$mendenhallglacier_oli_2023209_lrg_1
 # Save the two plots
-jpeg("2014_component_1.jpg", 900, 900)
-plot(b1_2014, main = "2014 first component")
+jpeg("1984_component_1.jpg", 900, 900)
+plot(b1_1984, main = "1984 first component")
 dev.off()
-jpeg("2019_component_1.jpg", 900, 900)
-plot(b1_2019, main = "2019 first component")
+jpeg("2023_component_1.jpg", 900, 900)
+plot(b1_2023, main = "2023 first component")
 dev.off()
