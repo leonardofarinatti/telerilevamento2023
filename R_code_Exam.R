@@ -65,14 +65,11 @@ dev.off()
 p1 <- plotRGB(taku_2014,r=1,g=2,b=3, stretch="lin")
 p2 <- plotRGB(taku_2019,r=1,g=2,b=3, stretch="lin")
 
-# Function "grid.arrange"  combine the two plots
-grid.arrange (p1,p2,nrow=1,ncol=2)
-# Assign the plot to an object
-rgb_picture_comparation <- grid.arrange(p1,p2,nrow=1, ncol=2)
-# Plot the picture comparation
-jpeg("rgb picture, comparation.jpg", 900, 900)
-plot(rgb_picture_comparation)
-dev.off()
+# Combine the two plots into one to compare them
+par(mfrow=c(1,2))
+plot(p1)
+plot(p2)
+
 
 # 1. PCA CALCULATION
 # Create a random number of samples from taku_2014 pixels (can't use directly the image from PCA)
@@ -116,3 +113,17 @@ pcid_2019
 ggplot() +
 geom_raster(pcid_2019, mapping = aes(x=x, y=y, fill=PC1)) +
 scale_fill_viridis()
+
+
+# 2. LOSS OF SNOW
+# Assign a name to the 2014 picture first component
+b1_2014 <- taku_2014$takuglacierretreat_oli_2014232_lrg_1
+# Assign a name to the 2019 picture first component
+b1_2019 <- taku_2019$takuglacierretreat_oli_2019221_lrg_1
+# Save the two plots
+jpeg("2014_component_1.jpg", 900, 900)
+plot(b1_2014, main = "2014 first component")
+dev.off()
+jpeg("2019_component_1.jpg", 900, 900)
+plot(b1_2019, main = "2019 first component")
+dev.off()
