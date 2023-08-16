@@ -18,7 +18,7 @@ library(viridis)
 # Now set the working directory
 setwd ("C:/lab/Esame")
 
-# We can call our objects, for this code we need two images of two different years (2014 - 2019) of Mendenhall glacier
+# We can call our objects, for this code we need two images of two different years (2014 - 2023) of Mendenhall glacier
 # Assign to those images a name
 mendenhall_1984 <- brick("mendenhallglacier_tm5_1984230_lrg.jpg")
 mendenhall_2023 <- brick("mendenhallglacier_oli_2023209_lrg.jpg")
