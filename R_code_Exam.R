@@ -58,7 +58,7 @@ plot(mendenhall_2023)
 dev.off()
 
 # Now to see the images with real color we need to use "ggplot2"
-# Function "ggRGB" calcolate the composite raster, following the bands order "red, green, blue", using a linear stretch
+# Function "plotRGB" calcolate the composite raster, following the bands order "red, green, blue", using a linear stretch
 plotRGB(mendenhall_1984,r=1,g=2,b=3, stretch="lin")
 plotRGB(mendenhall_2023,r=1,g=2,b=3, stretch="lin")
 
