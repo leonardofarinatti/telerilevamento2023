@@ -135,3 +135,22 @@ cl <- colorRampPalette(c('yellow','black','red'))(100)
 # Plot the difference
 plot(diff, col=cl, main = "loss of snow")
 dev.off()
+# Save this plot
+jpeg("diff.jpg", 900, 900)
+plot(diff, col=cl, main = "perdita manto nevoso")
+dev.off()
+
+
+# 3. STANDARD DEVIATION CALCULATION
+# The function to use for this is "focal", compute the focal values for the adjacent focal cells using a matrix
+# Set the matrix size, in this case a matrix with 5 rows and 5 columns
+# Set the function, in this case "sd" for standard deviation
+devst <- focal(diff, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
+# Make a new color palette to visualize the plot better
+cl2 <- colorRampPalette(c("blue","green","yellow","magenta"))(100)
+plot(devst, col=cld, main="standard deviation")
+dev.off()
+# Now save this plot
+jpeg("standard deviation map.jpg", 900, 900)
+plot(devst, col=cl2, main="deviazione standard")
+dev.off()
