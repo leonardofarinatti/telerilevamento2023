@@ -11,4 +11,206 @@
 \institute{Alma Mater Studiorum - Università di Bologna\\Telerilevamento Geo-Ecologico}
 \author{Studente: Leonardo Farinatti\\Docente: Duccio Rocchini }
 \date{A.A. 2022/2023}
-\logo{\includegraphics[height=1cm]{log.png}}
+\logo{\includegraphics[height=1.5cm]{log.png}}
+
+
+\begin{document}
+
+\maketitle
+
+
+\AtBeginSection[] 
+{
+\begin{frame}
+\frametitle{Indice}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\section{Scopo del progetto}
+
+\begin{frame}{Scopo del progetto}
+\begin{itemize}
+    \item  Analizzare la perdita di manto nevoso subita dal ghiacciaio Mendenhall attraverso lo studio di due immagini risalenti al 1984 ed al 2023
+\end{itemize}
+\end{frame}
+
+\section{Inquadramento}
+
+\begin{frame}{Inquadramento geografico}
+\begin{itemize}
+    \item Il ghiacciaio Mendenhall è situato nell'omonima valle, a circa 19 km dal centro di Juneau, capitale dell'Alaska, nella zona sud-orientale dello stato statunitense. 
+\end{itemize}
+\includegraphics[width=1\textwidth]{Inquadramento_geografico.jpg}
+    \centering
+\end{frame}
+
+\section{Metodi di analisi}
+
+\begin{frame}{Metodi}
+\begin{itemize}
+    \item Caricamento e preparazione iniziale delle immagini
+    
+    \item \pause Calcolo pca (principal component analysis) delle due immagini
+    
+    \item \pause Calcolo della perdita di manto nevoso
+    
+    \item \pause Calcolo della deviazione standard per mostrare i punti in cui lo scioglimento del ghiacciaio è stato maggiore
+\end{itemize}    
+\end{frame}
+
+\section{Analisi immagini}
+
+\begin{frame}{Script usato}
+\begin{itemize}
+    \item Per prima cosa è stato necessario \textbf{importare} le 2 immagini in R e \textbf{assegnarle} un nome
+\end{itemize}
+\bigskip
+\small mendenhall\_1984 <- brick("mendenhallglacier\_tm5\_1984230\_lrg.jpg")\\\small mendenhall\_2023 <- brick("mendenhallglacier\_oli\_2023209\_lrg.jpg")
+\end{frame}
+
+\begin{frame}{Componenti Mendenhall 1984}
+    \includegraphics[width=7.5cm, height=7.5cm]{mendenhall_1984_components.jpg}
+    \centering
+\end{frame}
+
+\begin{frame}{Componenti Mendenhall 2023}
+    \includegraphics[width=7.5cm, height=7.5cm]{mendenhall_2023_components.jpg}
+    \centering
+\end{frame}
+
+\begin{frame}{Script usato}
+\begin{itemize}
+    \item Successivamente è stata utilizzata la funzione \textbf{"plotRGB"} per poter visualizzare le immagini con i colori reali delle immagini satellitari di partenza
+\end{itemize}
+\bigskip
+\small plotRGB(mendenhall\_1984,r=1,g=2,b=3, stretch="lin")\\
+plotRGB(mendenhall\_2023,r=1,g=2,b=3, stretch="lin")
+\end{frame}
+
+ \begin{frame}{Script usato}
+\begin{itemize}
+    \item Attraverso la funzione \textbf{"par"} si è creato lo spazio grafico necessario per affiancare le due immagini per poterle \textbf{confrontare}
+\end{itemize}
+\bigskip
+\small par(mfrow=c(1,2))\\
+plotRGB(mendenhall\_1984,r=1,g=2,b=3, stretch="lin")\\
+plotRGB(mendenhall\_2023,r=1,g=2,b=3, stretch="lin")
+\end{frame}
+
+\begin{frame}{Immagini RGB comparate}
+    \includegraphics[width=10cm, height=4.5cm]{mendenhall_1984 VS mendenhall_2023.jpeg}
+    \centering
+\end{frame}
+
+\section{PCA}
+
+ \begin{frame}{Script usato}
+\begin{itemize}
+    \item Il seguente codice è stato utilizzato per il calcolo della \textbf{PCA} (principal component analysis) di entrambe le immagini
+\end{itemize}
+\bigskip
+\small sample\_1984 <- sampleRandom(mendenhall\_1984, 10000)\\pca\_1984 <- prcomp(sample\_1984)\\summary(pca\_1984)\\
+\bigskip
+\small sample\_2023 <- sampleRandom(mendenhall\_2023, 10000)\\pca\_2023 <- prcomp(sample\_2023)\\summary(pca\_2023)
+\end{frame}
+
+\begin{frame}{Componenti PCA 1984}
+    \includegraphics[width=7cm, height=7cm]{pca_1984.jpeg}
+    \centering
+\end{frame}
+
+\begin{frame}{Componenti PCA 2023}
+    \includegraphics[width=7cm, height=7cm]{pca_2023.jpeg}
+    \centering
+\end{frame}
+
+\begin{frame}{Script usato}
+\begin{itemize}
+    \item Dopo aver calcolato la PCA si è proceduto alla realizzazione dei due plot con le \textbf{"principal component map"} del 1984 e del 2023
+\end{itemize}
+\bigskip
+\small pci\_1984 <- predict(mendenhall\_1984, pca\_1984, index=c(1:2))\\pci\_2023 <- predict(mendenhall\_2023, pca\_2023, index=c(1:2))\\
+\bigskip
+pcid\_1984 <- as.data.frame(pci\_1984[[1]], xy=T)\\ggplot() +
+geom\_raster(pcid\_1984, mapping = aes(x=x, y=y, fill=PC1)) +
+scale\_fill\_viridis() +
+ggtitle("pci 1984")\\
+\bigskip
+pcid\_2023 <- as.data.frame(pci\_2023[[1]], xy=T)\\
+ggplot() +
+geom\_raster(pcid\_2023, mapping = aes(x=x, y=y, fill=PC1)) +
+scale\_fill\_viridis() +
+ggtitle("pci 2023")
+\end{frame}
+
+\begin{frame}{Principal component map 1984}
+    \includegraphics[width=9cm, height=7cm]{pci_1984.jpeg}
+    \centering
+\end{frame}
+
+\begin{frame}{Principal component map 2023}
+    \includegraphics[width=9cm, height=7cm]{pci_2023.jpeg}
+    \centering
+\end{frame}
+
+\section{Perdita manto nevoso}
+
+\begin{frame}{Script usato}
+\begin{itemize}
+    \item Per stimare la perdita di manto nevoso è stata calcolata la \textbf{differenza} tra la prima componente delle immagini del 1984 e del 2023
+\end{itemize}
+\bigskip
+\small b1\_1984 <- mendenhall\_1984$mendenhallglacier\_tm5\_1984230\_lrg\_1\\b1\_2023 <- mendenhall\_2023$mendenhallglacier\_oli\_2023209\_lrg\_1\\
+\bigskip
+diff <- b1\_1984 - b1\_2023
+\end{frame}
+
+\begin{frame}{Script usato}
+\begin{itemize}
+    \item E' stata poi creata una nuova \textbf{color palette} per visualizzare meglio il plot della differenza
+\end{itemize}
+\bigskip
+\small cl <- colorRampPalette(c('yellow','black','red'))(100)\\
+\bigskip
+plot(diff, col=cl, main = "loss of snow")
+\end{frame}
+
+\begin{frame}{Differenza tra le due immagini}
+    \includegraphics[width=8cm,height=8cm]{diff.jpg}
+    \centering
+\end{frame}
+
+\section{Deviazione Standard}
+
+\begin{frame}{Script usato}
+\begin{itemize}
+    \item Calcolo della deviazione standard attraverso la funzione \textbf{"focal"} per enfatizzare le aree che sono state colpite da un maggiore scioglimento del ghiacciaio
+\end{itemize}
+\bigskip
+\small devst <- focal(diff, w=matrix(1/25, nrow=5, ncol=5), fun=sd)\\
+\bigskip
+cl2 <- colorRampPalette(c("blue","green","yellow","magenta"))(100)\\
+plot(devst, col=cld, main="standard deviation")
+\end{frame}
+
+\begin{frame}{Mappa analisi deviazione standard}
+    \includegraphics[width=8cm, height=8cm]{standard deviation map.jpg}
+    \centering
+\end{frame}
+
+\section{Conclusioni}
+
+\begin{frame}{Conclusioni}
+\begin{itemize}
+    \item Le immagini prodotte mostrano come, nell'intervallo di tempo dal 1984 al 2023, le dimensioni del ghiacciaio Mendenhall siano diminuite. In particolar modo lo scioglimento ha riguardato l'\textbf{area basale} del ghiacciaio e le sue zone più periferiche, mentre la porzione centrale è rimasta pressochè invariata
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\centering
+\huge Grazie dell'attenzione
+\end{frame}
+
+\end{document}
